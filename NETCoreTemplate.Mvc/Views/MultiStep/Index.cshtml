@@ -1,0 +1,271 @@
+@{
+    ViewData["Title"] = "Multi Step Form";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Multi Step Form</h5>
+    </div>
+    <div class="card-body">
+        <!-- Progress bar -->
+        <div class="mb-4">
+            <div class="progress" style="height: 3px;">
+                <div class="progress-bar" role="progressbar" style="width: 0%;" id="formProgress"></div>
+            </div>
+            <div class="d-flex justify-content-between mt-1">
+                <span class="step-indicator active" data-step="1">Personal Info</span>
+                <span class="step-indicator" data-step="2">Contact Details</span>
+                <span class="step-indicator" data-step="3">Account Setup</span>
+                <span class="step-indicator" data-step="4">Review</span>
+            </div>
+        </div>
+
+        <form id="multiStepForm">
+            <!-- Step 1: Personal Information -->
+            <div class="form-step active" id="step1">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">First Name</label>
+                        <input type="text" class="form-control" name="firstName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Gender</label>
+                        <select class="form-select" name="gender" required>
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Contact Details -->
+            <div class="form-step" id="step2">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Phone</label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label required">Address</label>
+                    <input type="text" class="form-control" name="address" required>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">City</label>
+                        <input type="text" class="form-control" name="city" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label required">State</label>
+                        <select class="form-select" name="state" required>
+                            <option value="">Select state</option>
+                            <option value="CA">California</option>
+                            <option value="NY">New York</option>
+                            <option value="TX">Texas</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label required">ZIP Code</label>
+                        <input type="text" class="form-control" name="zipCode" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Account Setup -->
+            <div class="form-step" id="step3">
+                <div class="mb-3">
+                    <label class="form-label required">Username</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label required">Password</label>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label required">Confirm Password</label>
+                    <input type="password" class="form-control" name="confirmPassword" required>
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="terms" required>
+                        <label class="form-check-label required">I agree to the terms and conditions</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Review -->
+            <div class="form-step" id="step4">
+                <h6 class="mb-3">Review Your Information</h6>
+                <div id="reviewContent">
+                    <!-- Will be populated dynamically -->
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Previous</button>
+            <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-step {
+        display: none;
+    }
+
+    .form-step.active {
+        display: block;
+    }
+
+    .step-indicator {
+        color: #6c757d;
+        font-size: 0.875rem;
+        position: relative;
+        padding-top: 0.5rem;
+    }
+
+    .step-indicator.active {
+        color: #0d6efd;
+        font-weight: 500;
+    }
+
+    .step-indicator::before {
+        content: '';
+        position: absolute;
+        top: -0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: #fff;
+        border: 2px solid #6c757d;
+        border-radius: 50%;
+    }
+
+    .step-indicator.active::before {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .step-indicator.completed::before {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentStep = 1;
+            const totalSteps = 4;
+            const form = document.getElementById('multiStepForm');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const progressBar = document.getElementById('formProgress');
+
+            function updateStep(step) {
+                // Hide all steps
+                document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+                // Show current step
+                document.getElementById(`step${step}`).classList.add('active');
+                
+                // Update progress bar
+                progressBar.style.width = `${((step - 1) / (totalSteps - 1)) * 100}%`;
+                
+                // Update step indicators
+                document.querySelectorAll('.step-indicator').forEach(indicator => {
+                    const indicatorStep = parseInt(indicator.dataset.step);
+                    indicator.classList.remove('active', 'completed');
+                    if (indicatorStep === step) {
+                        indicator.classList.add('active');
+                    } else if (indicatorStep < step) {
+                        indicator.classList.add('completed');
+                    }
+                });
+
+                // Update buttons
+                prevBtn.style.display = step === 1 ? 'none' : 'block';
+                nextBtn.textContent = step === totalSteps ? 'Submit' : 'Next';
+            }
+
+            function validateStep(step) {
+                const currentStepElement = document.getElementById(`step${step}`);
+                const requiredFields = currentStepElement.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+
+                return isValid;
+            }
+
+            function populateReview() {
+                const formData = new FormData(form);
+                let reviewHtml = '<div class="table-responsive"><table class="table">';
+                
+                formData.forEach((value, key) => {
+                    if (key !== 'password' && key !== 'confirmPassword') {
+                        reviewHtml += `
+                            <tr>
+                                <th style="width: 200px;">${key.charAt(0).toUpperCase() + key.slice(1)}</th>
+                                <td>${value}</td>
+                            </tr>
+                        `;
+                    }
+                });
+                
+                reviewHtml += '</table></div>';
+                document.getElementById('reviewContent').innerHTML = reviewHtml;
+            }
+
+            nextBtn.addEventListener('click', function() {
+                if (validateStep(currentStep)) {
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        if (currentStep === totalSteps) {
+                            populateReview();
+                        }
+                        updateStep(currentStep);
+                    } else {
+                        // Handle form submission
+                        form.submit();
+                    }
+                }
+            });
+
+            prevBtn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    updateStep(currentStep);
+                }
+            });
+
+            // Initialize form
+            updateStep(currentStep);
+        });
+    </script>
+}
