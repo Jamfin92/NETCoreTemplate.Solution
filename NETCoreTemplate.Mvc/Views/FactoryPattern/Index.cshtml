@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Factory Pattern";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Factory Pattern Example</h2>
+                    <p class="card-text text-muted mb-4">
+                        This example demonstrates the Factory Pattern by creating different types of documents.
+                        The factory decides which concrete implementation to create based on the document type.
+                    </p>
+
+                    <form asp-action="ProcessDocument" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Document Type</label>
+                            <select name="documentType" class="form-select">
+                                <option value="pdf">PDF Document</option>
+                                <option value="word">Word Document</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Document Content</label>
+                            <textarea name="content" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-cogs me-2"></i>Process Document
+                        </button>
+                    </form>
+
+                    @if (ViewBag.Result != null)
+                    {
+                        <div class="mt-4">
+                            <div class="alert @(ViewBag.Success ? "alert-success" : "alert-danger")">
+                                @ViewBag.Result
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
