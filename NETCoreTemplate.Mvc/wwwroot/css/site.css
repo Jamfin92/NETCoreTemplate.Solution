@@ -152,3 +152,28 @@ body {
 .bg-secondary {
     background-color: #94a3b8 !important;
 }
+
+/* Form Styles */
+.required:after {
+    content: " *";
+    color: #dc3545;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.is-invalid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Form validation messages */
+.field-validation-error {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.validation-summary-errors ul {
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+}
