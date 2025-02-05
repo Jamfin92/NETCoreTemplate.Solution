@@ -6,40 +6,58 @@
     <title>@ViewData["Title"] - Template App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light border-bottom">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Template App</a>
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-cube me-2"></i>Template App
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home me-1"></i>Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Module1" asp-action="Grid">Grid Example</a>
+                            <a class="nav-link" asp-controller="Module1" asp-action="Grid">
+                                <i class="fas fa-table me-1"></i>Grid
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Module2" asp-action="Form">Form Example</a>
+                            <a class="nav-link" asp-controller="Module2" asp-action="Form">
+                                <i class="fas fa-wpforms me-1"></i>Form
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Module3" asp-action="Cards">Card Example</a>
+                            <a class="nav-link" asp-controller="Module3" asp-action="Cards">
+                                <i class="fas fa-th-large me-1"></i>Cards
+                            </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Advanced
+                                <i class="fas fa-tools me-1"></i>Advanced
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Module4" asp-action="NestedGrid">Nested Grid</a>
+                                    <a class="dropdown-item" asp-controller="Module4" asp-action="NestedGrid">
+                                        <i class="fas fa-th me-2"></i>Nested Grid
+                                    </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Module5" asp-action="MultiStep">Multi Step</a>
+                                    <a class="dropdown-item" asp-controller="Module5" asp-action="MultiStep">
+                                        <i class="fas fa-tasks me-2"></i>Multi Step
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -50,14 +68,20 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="py-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer border-top">
         <div class="container">
-            &copy; 2025 - Template App
+            <div class="d-flex justify-content-between align-items-center">
+                <span>&copy; @DateTime.Now.Year - Template App</span>
+                <div>
+                    <a href="#" class="text-muted me-3">Privacy</a>
+                    <a href="#" class="text-muted">Terms</a>
+                </div>
+            </div>
         </div>
     </footer>
 
