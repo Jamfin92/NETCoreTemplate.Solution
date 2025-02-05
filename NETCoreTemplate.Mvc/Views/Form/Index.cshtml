@@ -1,0 +1,134 @@
+@model NETCoreTemplate.Mvc.Models.FormViewModel
+@{
+    ViewData["Title"] = "Form";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Sample Form</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" id="sampleForm">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="FirstName" class="form-label required">First Name</label>
+                    <input asp-for="FirstName" class="form-control" placeholder="Enter first name">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="LastName" class="form-label required">Last Name</label>
+                    <input asp-for="LastName" class="form-control" placeholder="Enter last name">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label required">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Phone" class="form-label">Phone</label>
+                    <input asp-for="Phone" class="form-control" placeholder="Enter phone number">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label">Address</label>
+                <input asp-for="Address" class="form-control" placeholder="Enter street address">
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="City" class="form-label">City</label>
+                    <input asp-for="City" class="form-control" placeholder="Enter city">
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="State" class="form-label">State</label>
+                    <select asp-for="State" class="form-select">
+                        <option value="">Select state</option>
+                        <option value="CA">California</option>
+                        <option value="TX">Texas</option>
+                        <option value="NY">New York</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="ZipCode" class="form-label">ZIP Code</label>
+                    <input asp-for="ZipCode" class="form-control" placeholder="Enter ZIP code">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Department" class="form-label">Department</label>
+                <select asp-for="Department" class="form-select">
+                    <option value="">Select department</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="HR">Human Resources</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Comments" class="form-label">Comments</label>
+                <textarea asp-for="Comments" class="form-control" rows="3" placeholder="Enter any additional comments"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input asp-for="AcceptTerms" class="form-check-input">
+                    <label asp-for="AcceptTerms" class="form-check-label required">
+                        I agree to the terms and conditions
+                    </label>
+                    <span asp-validation-for="AcceptTerms" class="d-block text-danger"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancel</button>
+            <button type="submit" form="sampleForm" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('sampleForm');
+            
+            // Add custom validation for the checkbox
+            form.addEventListener('submit', function(e) {
+                var acceptTerms = document.getElementById('AcceptTerms');
+                if (!acceptTerms.checked) {
+                    e.preventDefault();
+                    acceptTerms.classList.add('is-invalid');
+                    var errorSpan = acceptTerms.parentElement.querySelector('.text-danger');
+                    if (!errorSpan) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.className = 'text-danger d-block';
+                        acceptTerms.parentElement.appendChild(errorSpan);
+                    }
+                    errorSpan.textContent = 'You must agree to the terms and conditions';
+                }
+            });
+
+            // Remove validation styling when checkbox is checked
+            document.getElementById('AcceptTerms').addEventListener('change', function() {
+                if (this.checked) {
+                    this.classList.remove('is-invalid');
+                    var errorSpan = this.parentElement.querySelector('.text-danger');
+                    if (errorSpan) {
+                        errorSpan.textContent = '';
+                    }
+                }
+            });
+        });
+    </script>
+} 

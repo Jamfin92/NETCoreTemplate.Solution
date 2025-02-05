@@ -25,26 +25,31 @@ body {
 /* Table Styles */
 .table {
     margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .table thead th {
-    background-color: var(--background-color);
-    border-bottom: 1px solid var(--border-color);
-    color: var(--secondary-color);
-    font-weight: 500;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-bottom: 2px solid #cbd5e1;
+    color: #475569;
+    font-weight: 600;
     text-transform: uppercase;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
+    padding: 0.75rem;
 }
 
 .table td {
     vertical-align: middle;
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
     color: #475569;
 }
 
 .table tbody tr:hover {
-    background-color: var(--background-color);
+    background-color: #f8fafc;
 }
 
 /* Card Styles */
@@ -113,4 +118,37 @@ body {
 .btn-outline-danger:hover {
     background-color: #dc2626;
     border-color: #dc2626;
+}
+
+/* Search Input Styles */
+.input-group {
+    max-width: 400px;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+}
+
+/* Sort Icons */
+.fa-sort {
+    color: #cbd5e1;
+}
+
+.fa-sort-up,
+.fa-sort-down {
+    color: var(--primary-color);
+}
+
+/* Status Badge Colors */
+.bg-success {
+    background-color: #22c55e !important;
+}
+
+.bg-warning {
+    background-color: #f59e0b !important;
+}
+
+.bg-secondary {
+    background-color: #94a3b8 !important;
 }
